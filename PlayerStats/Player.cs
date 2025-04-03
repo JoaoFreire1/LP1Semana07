@@ -12,6 +12,9 @@ namespace PlayerStats
         private int playedGames;
         private int wonGames;
 
-        private float HighScore {set => (highScore < value) ? (highScore = value) : (highScore = highScore)};
+        private float HighScore {set => highScore = (highScore < value) ? value : highScore;}
+
+        private string Name {get; set; }
+        private readonly WinRate { get => winrate = (playedGames < 0) ? 0 : (playedGames/wonGames);}
     }
 }
