@@ -20,6 +20,14 @@ namespace BetterColorSpheres
             this.Alpha = alpha;
         }
 
+        public Color(byte red, byte green, byte blue)
+        {
+            this.Red = red;
+            this.Green = green;
+            this.Blue = blue;
+            Alpha = 255;
+        }
+
         public byte GetGrey()
         {
             return (byte)((Red+Green+Blue)/3);
