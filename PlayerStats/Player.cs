@@ -9,12 +9,29 @@ namespace PlayerStats
     public class Player
     {
         private float highScore = 0;
-        private int playedGames;
-        private int wonGames;
+        private int playedGames = 0;
+        private int wonGames = 0;
 
-        private float HighScore {set => highScore = (highScore < value) ? value : highScore;}
+        public float HighScore {get => highScore; set => highScore = (highScore < value) ? value : highScore;}
 
-        private string Name {get; set; }
-        private readonly WinRate { get => winrate = (playedGames < 0) ? 0 : (playedGames/wonGames);}
+        public string Name {get; set; }
+        public float WinRate
+        {
+            get => (playedGames == 0) ? 0 : (float)wonGames / playedGames;
+        }
+
+        public void PlayGame (bool win)
+        {
+            playedGames++;
+            if (win == true)
+            {
+                wonGames++;
+            }
+        }
+
+        public Player(string Name)
+        {
+            this.Name = Name;
+        }
     }
 }
