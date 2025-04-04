@@ -8,7 +8,7 @@ namespace MyRPG
     public class Player
     {
         private int level;
-        private int xp;
+        private int xp = 0;
         private float health;
         private float maxHealth;
 
@@ -16,17 +16,10 @@ namespace MyRPG
         public int Level
         {
             get { return level; }
-            private set { level = (1 + xp) /1000; }
+            private set { level = value;  }
         }
-        public int XP
-        {
-            get { return xp; }
-            set
-            {
-                xp = value;
-                if (xp >= 1250 && (xp/1250)>(level-1)) LevelUp();
-            }
-        }
+
+        public int XP {get => xp; set => xp = (xp < value) ? value : xp;}
         public float Health
         {
             get { return health; }
@@ -36,7 +29,7 @@ namespace MyRPG
         public float MaxHealth
         {
             get { return maxHealth; }
-            private set { maxHealth = 100 + (level - 1) * 20; }
+            private set { maxHealth = value; }
         }
 
         public Player(string name)
@@ -44,8 +37,8 @@ namespace MyRPG
             Name = name;
             Level = 1;
             XP = 0;
-            MaxHealth = 100;
-            Health = 100;
+            MaxHealth = 100 + (level - 1) * 20;
+            Health = MaxHealth;
         }
 
         private void LevelUp()
