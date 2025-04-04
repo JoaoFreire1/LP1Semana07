@@ -9,14 +9,14 @@ namespace MyRPG
     {
         private int level;
         private int xp;
-        private int health;
-        private int maxHealth;
+        private float health;
+        private float maxHealth;
 
         public string Name { get; }
         public int Level
         {
             get { return level; }
-            private set { level = value; }
+            private set { level = (1 + xp) /1000; }
         }
         public int XP
         {
@@ -27,16 +27,42 @@ namespace MyRPG
                 if (xp >= 1250 && (xp/1250)>(level-1)) LevelUp();
             }
         }
-        public int Health
+        public float Health
         {
             get { return health; }
             set { health = Math.Min(Math.Max(value, 0), MaxHealth); }
         }
 
-        public int MaxHealth
+        public float MaxHealth
         {
             get { return maxHealth; }
-            private set { maxHealth = value; }
+            private set { maxHealth = 100 + (level - 1) * 20; }
+        }
+
+        public Player(string name)
+        {
+            Name = name;
+            Level = 1;
+            XP = 0;
+            MaxHealth = 100;
+            Health = 100;
+        }
+
+        private void LevelUp()
+        {
+            if((XP / 1250) > 0)
+            {
+                var levels = XP / 1250;
+                Level += levels;
+                MaxHealth = 100 + ((Level-1) * 20);
+            }
+        }
+
+        public void TakeDamage(float amount)
+        {
+            Health -= amount;
+            if (Health < 0) Health = 0;
+            XP += 2;
         }
     }
 }
