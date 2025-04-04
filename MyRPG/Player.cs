@@ -32,5 +32,11 @@ namespace MyRPG
             get { return health; }
             set { health = Math.Min(Math.Max(value, 0), MaxHealth); }
         }
+
+        public int MaxHealth
+        {
+            get { return maxHealth; }
+            private set { maxHealth = value; }
+        }
     }
 }
