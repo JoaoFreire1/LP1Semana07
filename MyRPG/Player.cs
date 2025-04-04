@@ -3,19 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace 
+namespace MyRPG
 {
     public class Player
     {
-        private int xp = 0;
-        private float health;
-        public string Name {get; set; }
-        public float XP {get => xp; set => xp = (xp + value);}
-        public float Level
-        {
-            get => (level == 0) ? 0 : (float)(1 + xp) / 1000;
-        }
+        private int level;
+        private int xp;
+        private int health;
+        private int maxHealth;
 
-        public float Health {get => health = (0 < health < MaxHealth) ? health : MaxHealth;}
+        public string Name { get; }
+        public int Level
+        {
+            get { return level; }
+            private set { level = value; }
+        }
+        public int XP
+        {
+            get { return xp; }
+            set
+            {
+                xp = value;
+                if (xp >= 1250 && (xp/1250)>(level-1)) LevelUp();
+            }
+        }
+        public int Health
+        {
+            get { return health; }
+            set { health = Math.Min(Math.Max(value, 0), MaxHealth); }
+        }
     }
 }
