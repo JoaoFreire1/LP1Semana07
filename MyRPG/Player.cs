@@ -19,7 +19,15 @@ namespace MyRPG
             private set { level = value;  }
         }
 
-        public int XP {get => xp; set => xp = (xp < value) ? value : xp;}
+        public int XP
+        {
+            get { return xp; }
+            set
+            {
+                xp = value;
+                if (xp >= 1250 && (xp/1250)>(level-1)) LevelUp();
+            }
+        }
         public float Health
         {
             get { return health; }
@@ -51,9 +59,9 @@ namespace MyRPG
             }
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(float damage)
         {
-            Health -= amount;
+            Health -= damage;
             if (Health < 0) Health = 0;
             XP += 2;
         }
