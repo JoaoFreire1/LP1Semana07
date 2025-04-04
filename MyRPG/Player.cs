@@ -15,5 +15,7 @@ namespace
         {
             get => (level == 0) ? 0 : (float)(1 + xp) / 1000;
         }
+
+        public float Health {get => health = (0 < health < MaxHealth) ? health : MaxHealth;}
     }
 }
